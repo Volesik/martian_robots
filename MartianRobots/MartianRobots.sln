@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Api", "MartianRobots.Api\MartianRobots.Api.csproj", "{C1FC9814-1640-4EB7-9FC3-BF4703F661D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Console", "MartianRobots.Console\MartianRobots.Console.csproj", "{564B0336-9C6E-40D3-975D-E7B8CAAE1680}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{6B43AFFF-A66D-446C-A4DF-5251B73CEB4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{FCD7DFA0-4763-4906-8475-649F28D36DC4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{24E24FED-9D33-49BA-ACDE-5181FACFEAD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6829097C-3F08-4B72-A100-2A737D6DA82D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{466783BD-D853-467B-A8BF-3B9284CD9AA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Common.Tests", "MartianRobots.Common.Tests\MartianRobots.Common.Tests.csproj", "{51D35E90-C771-4BFA-BFDF-9D8EC3A6DD42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.BL.Tests", "MartianRobots.BL.Tests\MartianRobots.BL.Tests.csproj", "{0459AEA3-CB2C-43D4-849C-047689E25380}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.BL", "MartianRobots.BL\MartianRobots.BL.csproj", "{352B52FC-C2B9-45E0-A964-EA2633C14184}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Common", "MartianRobots.Common\MartianRobots.Common.csproj", "{D3DB0CE7-446F-4D61-A3F9-0114F1EE8EC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Dto", "MartianRobots.Dto\MartianRobots.Dto.csproj", "{8F5C6DB0-C5FB-4F72-BD08-8A962B4B2825}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Enums", "MartianRobots.Enums\MartianRobots.Enums.csproj", "{2540FC29-7AD1-426A-AAA4-C4196FD31BB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1FC9814-1640-4EB7-9FC3-BF4703F661D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1FC9814-1640-4EB7-9FC3-BF4703F661D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1FC9814-1640-4EB7-9FC3-BF4703F661D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1FC9814-1640-4EB7-9FC3-BF4703F661D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{564B0336-9C6E-40D3-975D-E7B8CAAE1680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{564B0336-9C6E-40D3-975D-E7B8CAAE1680}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{564B0336-9C6E-40D3-975D-E7B8CAAE1680}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{564B0336-9C6E-40D3-975D-E7B8CAAE1680}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51D35E90-C771-4BFA-BFDF-9D8EC3A6DD42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51D35E90-C771-4BFA-BFDF-9D8EC3A6DD42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51D35E90-C771-4BFA-BFDF-9D8EC3A6DD42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51D35E90-C771-4BFA-BFDF-9D8EC3A6DD42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0459AEA3-CB2C-43D4-849C-047689E25380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0459AEA3-CB2C-43D4-849C-047689E25380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0459AEA3-CB2C-43D4-849C-047689E25380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0459AEA3-CB2C-43D4-849C-047689E25380}.Release|Any CPU.Build.0 = Release|Any CPU
+		{352B52FC-C2B9-45E0-A964-EA2633C14184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{352B52FC-C2B9-45E0-A964-EA2633C14184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{352B52FC-C2B9-45E0-A964-EA2633C14184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{352B52FC-C2B9-45E0-A964-EA2633C14184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3DB0CE7-446F-4D61-A3F9-0114F1EE8EC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3DB0CE7-446F-4D61-A3F9-0114F1EE8EC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3DB0CE7-446F-4D61-A3F9-0114F1EE8EC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3DB0CE7-446F-4D61-A3F9-0114F1EE8EC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F5C6DB0-C5FB-4F72-BD08-8A962B4B2825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F5C6DB0-C5FB-4F72-BD08-8A962B4B2825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F5C6DB0-C5FB-4F72-BD08-8A962B4B2825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F5C6DB0-C5FB-4F72-BD08-8A962B4B2825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2540FC29-7AD1-426A-AAA4-C4196FD31BB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2540FC29-7AD1-426A-AAA4-C4196FD31BB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2540FC29-7AD1-426A-AAA4-C4196FD31BB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2540FC29-7AD1-426A-AAA4-C4196FD31BB8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40126193-D411-4A30-A9B5-8AFA6876FC2F}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C1FC9814-1640-4EB7-9FC3-BF4703F661D1} = {6B43AFFF-A66D-446C-A4DF-5251B73CEB4F}
+		{564B0336-9C6E-40D3-975D-E7B8CAAE1680} = {6B43AFFF-A66D-446C-A4DF-5251B73CEB4F}
+		{466783BD-D853-467B-A8BF-3B9284CD9AA1} = {6829097C-3F08-4B72-A100-2A737D6DA82D}
+		{51D35E90-C771-4BFA-BFDF-9D8EC3A6DD42} = {466783BD-D853-467B-A8BF-3B9284CD9AA1}
+		{0459AEA3-CB2C-43D4-849C-047689E25380} = {466783BD-D853-467B-A8BF-3B9284CD9AA1}
+		{352B52FC-C2B9-45E0-A964-EA2633C14184} = {FCD7DFA0-4763-4906-8475-649F28D36DC4}
+		{D3DB0CE7-446F-4D61-A3F9-0114F1EE8EC2} = {24E24FED-9D33-49BA-ACDE-5181FACFEAD1}
+		{8F5C6DB0-C5FB-4F72-BD08-8A962B4B2825} = {24E24FED-9D33-49BA-ACDE-5181FACFEAD1}
+		{2540FC29-7AD1-426A-AAA4-C4196FD31BB8} = {24E24FED-9D33-49BA-ACDE-5181FACFEAD1}
+	EndGlobalSection
+EndGlobal
