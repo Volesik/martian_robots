@@ -7,4 +7,6 @@ public class MissionResult
     public int FinalPositionY { get; set; }
     
     public char FinalDirection { get; set; }
+    
+    public bool IsRoverLost { get; set; }
 }

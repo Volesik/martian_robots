@@ -9,6 +9,8 @@ public interface IRover
     
     Direction CurrentDirection { get; }
     
+    bool IsRoverLost { get; }
+    
     void TurnLeft();
     
     void TurnRight();

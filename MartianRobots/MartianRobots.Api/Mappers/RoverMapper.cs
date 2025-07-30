@@ -20,7 +20,8 @@ public static class RoverMapper
         {
             FinalPositionX = rover.Position.X,
             FinalPositionY = rover.Position.Y,
-            FinalDirection = DirectionMapper.DirectionToChar(rover.CurrentDirection)
+            FinalDirection = DirectionMapper.DirectionToChar(rover.CurrentDirection),
+            IsRoverLost = rover.IsRoverLost
         };
         
         return missionResult;

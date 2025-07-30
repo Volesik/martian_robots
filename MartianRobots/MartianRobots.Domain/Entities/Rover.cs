@@ -13,6 +13,8 @@ public class Rover : IRover
     public Coordinates Position { get; private set; }
     
     public Direction CurrentDirection { get; private set; }
+    
+    public bool IsRoverLost { get; private set; }
 
     public Rover(
         int initialPositionX,
@@ -34,16 +36,27 @@ public class Rover : IRover
     
     public void TurnLeft()
     {
-        CurrentDirection = CurrentDirection.TurnLeft();
+        if (!IsRoverLost)
+        {
+            CurrentDirection = CurrentDirection.TurnLeft();
+        }
     }
 
     public void TurnRight()
     {
-        CurrentDirection = CurrentDirection.TurnRight();
+        if (!IsRoverLost)
+        {
+            CurrentDirection = CurrentDirection.TurnRight();
+        }
     }
 
     public void MoveForward()
     {
+        if (IsRoverLost)
+        {
+            return;
+        }
+        
         var updatedPositionX = Position.X;
         var updatedPositionY = Position.Y;
 
@@ -65,10 +78,14 @@ public class Rover : IRover
                 throw new ArgumentException("Unknown direction.");
         }
         
-        var isPositionInsidePlateau = _plateau.IsInsidePlateauArea(Position.X, Position.Y);
+        var isPositionInsidePlateau = _plateau.IsInsidePlateauArea(updatedPositionX, updatedPositionY);
         if (isPositionInsidePlateau)
         {
             Position = new Coordinates(updatedPositionX, updatedPositionY);
+        }
+        else
+        {
+            IsRoverLost = true;
         }
     }
 }
