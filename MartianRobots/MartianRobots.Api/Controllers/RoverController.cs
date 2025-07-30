@@ -1,3 +1,8 @@
+using MartianRobot.Application.Interfaces;
+using MartianRobots.Api.Mappers;
+using MartianRobots.Domain.Entities;
+using MartianRobots.Dto.Requests;
+using MartianRobots.Dto.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MartianRobots.Api.Controllers
@@ -6,14 +11,27 @@ namespace MartianRobots.Api.Controllers
     [Route("[controller]")]
     public class RoverController : ControllerBase
     {
-        public RoverController()
+        private readonly IMarsRoverSimulator _marsRoverSimulator;
+        
+        public RoverController(IMarsRoverSimulator marsRoverSimulator)
         {
+            _marsRoverSimulator = marsRoverSimulator;
         }
 
-        [HttpGet]
-        public string Get()
+        [HttpPost]
+        public ActionResult<IEnumerable<MissionResult>> RunMarsMission([FromBody] MissionRequest request)
         {
-            return "Hello World";
+            var plateau = new Plateau(request.PlateauSizeX, request.PlateauSizeY);
+            var results = new List<MissionResult>();
+
+            foreach (var roverConfiguration in request.RoverConfigurations)
+            {
+                var rover = RoverMapper.ToModel(roverConfiguration, plateau);
+                _marsRoverSimulator.ExecuteCommands(rover, roverConfiguration.Commands);
+                results.Add(RoverMapper.ToDto(rover));
+            }
+            
+            return Ok(results);
         }
     }
 }

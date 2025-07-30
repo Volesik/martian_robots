@@ -1,6 +1,12 @@
+using MartianRobot.Application.Interfaces;
+using MartianRobot.Application.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<IMarsRoverSimulator, MarsRoverSimulator>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

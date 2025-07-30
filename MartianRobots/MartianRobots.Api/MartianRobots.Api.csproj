@@ -10,4 +10,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MartianRobot.Application\MartianRobot.Application.csproj" />
+    <ProjectReference Include="..\MartianRobots.Dto\MartianRobots.Dto.csproj" />
+  </ItemGroup>
+
 </Project>
