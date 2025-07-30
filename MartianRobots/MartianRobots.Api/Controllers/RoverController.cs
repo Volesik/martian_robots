@@ -1,4 +1,4 @@
-using MartianRobot.Application.Interfaces;
+using MartianRobots.Application.Interfaces;
 using MartianRobots.Api.Mappers;
 using MartianRobots.Domain.Entities;
 using MartianRobots.Dto.Requests;

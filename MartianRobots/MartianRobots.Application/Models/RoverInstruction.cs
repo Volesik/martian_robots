@@ -1,6 +1,6 @@
 ﻿using MartianRobots.Common.Enums;
 
-namespace MartianRobot.Application.Models;
+namespace MartianRobots.Application.Models;
 
 public readonly record struct RoverInstruction(
     int InitialPositionX,

@@ -1,7 +1,7 @@
-﻿using MartianRobot.Application.Interfaces;
+﻿using MartianRobots.Application.Interfaces;
 using MartianRobots.Domain.Interfaces;
 
-namespace MartianRobot.Application.Services;
+namespace MartianRobots.Application.Services;
 
 public class MarsRoverSimulator : IMarsRoverSimulator
 {

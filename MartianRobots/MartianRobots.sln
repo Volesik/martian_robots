@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Dto", "Martia
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Domain", "MartianRobots.Domain\MartianRobots.Domain.csproj", "{1398115A-DC27-46DF-ADC3-A245F6508935}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobot.Application", "MartianRobot.Application\MartianRobot.Application.csproj", "{C013B014-7A22-4102-8E63-3D7E8D1422E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Application", "MartianRobots.Application\MartianRobots.Application.csproj", "{C013B014-7A22-4102-8E63-3D7E8D1422E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

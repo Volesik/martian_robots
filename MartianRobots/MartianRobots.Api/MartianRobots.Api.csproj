@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MartianRobot.Application\MartianRobot.Application.csproj" />
+    <ProjectReference Include="..\MartianRobots.Application\MartianRobots.Application.csproj" />
     <ProjectReference Include="..\MartianRobots.Dto\MartianRobots.Dto.csproj" />
   </ItemGroup>
 

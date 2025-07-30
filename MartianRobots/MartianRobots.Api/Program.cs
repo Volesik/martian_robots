@@ -1,5 +1,5 @@
-using MartianRobot.Application.Interfaces;
-using MartianRobot.Application.Services;
+using MartianRobots.Application.Interfaces;
+using MartianRobots.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
