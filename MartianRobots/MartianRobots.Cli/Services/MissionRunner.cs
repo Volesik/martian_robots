@@ -20,33 +20,48 @@ public class MissionRunner
     public void Run()
     {
         Console.WriteLine("=== Mars Rover Mission ===");
-        
-        var plateau = GetPlateau();
-        
-        Console.WriteLine("Enter rover instructions (empty line to exit).");
-        
-        while (true)
+
+        try
         {
-            if (!TryReadRover(out var xCoordinate, out var yCoordinate, out var direction))
+            var plateau = GetPlateau();
+
+            Console.WriteLine("Enter rover instructions (empty line to exit).");
+
+            while (true)
             {
-                break;
+                if (!TryReadRover(out var xCoordinate, out var yCoordinate, out var direction))
+                {
+                    break;
+                }
+
+                Console.Write("Enter command sequence (e.g. LMLMLMLMM): ");
+
+                var commands = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(commands))
+                {
+                    Console.WriteLine("Commands cannot be empty.");
+                    continue;
+                }
+
+                try
+                {
+                    var rover = new Rover(xCoordinate, yCoordinate, direction, plateau);
+                    _marsRoverSimulator.ExecuteCommands(rover, commands);
+                    PrintRoverResult(rover);
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine($"[ERROR] Failed to execute rover commands: {exception.Message}");
+                    throw;
+                }
             }
 
-            Console.Write("Enter command sequence (e.g. LMLMLMLMM): ");
-            
-            var commands = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(commands))
-            {
-                Console.WriteLine("Commands cannot be empty.");
-                continue;
-            }
-
-            var rover = new Rover(xCoordinate, yCoordinate, direction, plateau);
-            _marsRoverSimulator.ExecuteCommands(rover, commands);
-            PrintRoverResult(rover);
+            Console.WriteLine("Mission complete.");
         }
-
-        Console.WriteLine("Mission complete.");
+        catch (Exception exception)
+        {
+            Console.WriteLine($"[FATAL ERROR] Mission aborted: {exception.Message}");
+        }
     }
 
     private static Plateau GetPlateau()

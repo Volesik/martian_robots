@@ -19,19 +19,33 @@ namespace MartianRobots.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(IEnumerable<MissionResult>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<IEnumerable<MissionResult>> RunMarsMission([FromBody] MissionRequest request)
         {
-            var plateau = new Plateau(request.PlateauSizeX, request.PlateauSizeY);
-            var results = new List<MissionResult>();
-
-            foreach (var roverConfiguration in request.RoverConfigurations)
+            try
             {
-                var rover = RoverMapper.ToModel(roverConfiguration, plateau);
-                _marsRoverSimulator.ExecuteCommands(rover, roverConfiguration.Commands);
-                results.Add(RoverMapper.ToDto(rover));
-            }
+                var plateau = new Plateau(request.PlateauSizeX, request.PlateauSizeY);
+                var results = new List<MissionResult>();
+
+                foreach (var roverConfiguration in request.RoverConfigurations)
+                {
+                    var rover = RoverMapper.ToModel(roverConfiguration, plateau);
+                    _marsRoverSimulator.ExecuteCommands(rover, roverConfiguration.Commands);
+                    results.Add(RoverMapper.ToDto(rover));
+                }
             
-            return Ok(results);
+                return Ok(results);
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest($"Invalid mission input: {exception.Message}");
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Unexpected server error: {exception.Message}");
+            }
         }
     }
 }
