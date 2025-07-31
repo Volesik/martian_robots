@@ -85,6 +85,12 @@ public class Rover : IRover
         }
         else
         {
+            if (_plateau.IsDangerZone(Position.X, Position.Y, CurrentDirection))
+            {
+                return;
+            }
+            
+            _plateau.AddDangerZone(Position.X, Position.Y, CurrentDirection);
             IsRoverLost = true;
         }
     }
