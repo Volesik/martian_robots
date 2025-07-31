@@ -1,4 +1,5 @@
-﻿using MartianRobots.Common.Enums;
+﻿using MartianRobots.Common.Constants;
+using MartianRobots.Common.Enums;
 using MartianRobots.Dto.Mappers;
 
 namespace MartianRobots.Dto.Tests.Mappers;
@@ -31,10 +32,10 @@ public class DirectionMapperTests
         Assert.That(exception.Message, Does.Contain("Invalid direction"));
     }
     
-    [TestCase(Direction.North, 'N')]
-    [TestCase(Direction.East, 'E')]
-    [TestCase(Direction.South, 'S')]
-    [TestCase(Direction.West, 'W')]
+    [TestCase(Direction.North, DirectionConstants.NorthDirection)]
+    [TestCase(Direction.East, DirectionConstants.EastDirection)]
+    [TestCase(Direction.South, DirectionConstants.SouthDirection)]
+    [TestCase(Direction.West, DirectionConstants.WestDirection)]
     public void DirectionToChar_ValidDirection_ReturnsExpectedChar(Direction input, char expected)
     {
         var result = DirectionMapper.DirectionToChar(input);
@@ -48,6 +49,6 @@ public class DirectionMapperTests
         var invalidDirection = (Direction)(-1);
         var result = DirectionMapper.DirectionToChar(invalidDirection);
         
-        Assert.That(result, Is.EqualTo('?'));
+        Assert.That(result, Is.EqualTo(DirectionConstants.UnknownDirection));
     }
 }

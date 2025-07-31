@@ -15,8 +15,4 @@
     <ProjectReference Include="..\MartianRobots.Dto\MartianRobots.Dto.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mappers\" />
-  </ItemGroup>
-
 </Project>

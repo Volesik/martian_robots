@@ -23,10 +23,10 @@ public class Plateau : IPlateau
         MaxYPosition = maxYPosition;
     }
 
-    public bool IsInsidePlateauArea(int x, int y)
+    public bool IsInsidePlateauArea(int xCoordinate, int yCoordinate)
     {
-        var isInsidePlateau = x >= PlateauConstants.DefaultPosition && x <= MaxXPosition &&
-                              y >= PlateauConstants.DefaultPosition && y <= MaxYPosition;
+        var isInsidePlateau = xCoordinate >= PlateauConstants.DefaultPosition && xCoordinate <= MaxXPosition &&
+                              yCoordinate >= PlateauConstants.DefaultPosition && yCoordinate <= MaxYPosition;
         
         return isInsidePlateau;
     }

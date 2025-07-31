@@ -1,4 +1,5 @@
 ﻿using MartianRobots.Application.Interfaces;
+using MartianRobots.Common.Constants;
 
 namespace MartianRobots.Application.Commands;
 
@@ -8,9 +9,9 @@ public class CommandFactory : ICommandFactory
     {
         return char.ToUpperInvariant(instruction) switch
         {
-            'F' => new MoveCommand(),
-            'L' => new TurnLeftCommand(),
-            'R' => new TurnRightCommand(),
+            RoverConstants.MoveForwardInstruction => new MoveCommand(),
+            RoverConstants.TurnLeftInstruction => new TurnLeftCommand(),
+            RoverConstants.TurnRightInstruction => new TurnRightCommand(),
             _ => throw new ArgumentException($"Unknown instruction: {instruction}")
         };
     }

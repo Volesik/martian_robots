@@ -1,5 +1,4 @@
-﻿using MartianRobots.Application.Interfaces;
-using MartianRobots.Application.Services;
+﻿using MartianRobots.Application.Extensions;
 using MartianRobots.Cli.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,9 +9,7 @@ public static class Startup
     public static IServiceProvider ConfigureServices()
     {
         var services = new ServiceCollection();
-
-        // App services
-        services.AddScoped<IMarsRoverSimulator, MarsRoverSimulator>();
+        services.AddAppServices();
         services.AddScoped<MissionRunner>();
 
         return services.BuildServiceProvider();

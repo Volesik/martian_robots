@@ -4,7 +4,7 @@ namespace MartianRobots.Domain.Interfaces;
 
 public interface IPlateau
 {
-    bool IsInsidePlateauArea(int x, int y);
+    bool IsInsidePlateauArea(int xCoordinate, int yCoordinate);
     
     bool IsDangerZone(int xCoordinate, int yCoordinate, Direction direction);
     

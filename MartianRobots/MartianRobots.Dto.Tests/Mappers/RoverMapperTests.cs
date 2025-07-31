@@ -1,4 +1,5 @@
-﻿using MartianRobots.Common.Enums;
+﻿using MartianRobots.Common.Constants;
+using MartianRobots.Common.Enums;
 using MartianRobots.Domain.Entities;
 using MartianRobots.Dto.Mappers;
 using MartianRobots.Dto.Requests;
@@ -16,7 +17,7 @@ public class RoverMapperTests
         {
             InitialPositionX = 2,
             InitialPositionY = 3,
-            InitialDirection = 'E'
+            InitialDirection = DirectionConstants.EastDirection
         };
 
         var plateau = new Plateau(5, 5);
@@ -66,7 +67,7 @@ public class RoverMapperTests
         {
             Assert.That(result.FinalPositionX, Is.EqualTo(1));
             Assert.That(result.FinalPositionY, Is.EqualTo(3));
-            Assert.That(result.FinalDirection, Is.EqualTo('N'));
+            Assert.That(result.FinalDirection, Is.EqualTo(DirectionConstants.NorthDirection));
             Assert.That(result.IsRoverLost, Is.False);
         });
     }
@@ -88,7 +89,7 @@ public class RoverMapperTests
             Assert.That(result.IsRoverLost, Is.True);
             Assert.That(result.FinalPositionX, Is.EqualTo(2));
             Assert.That(result.FinalPositionY, Is.EqualTo(2));
-            Assert.That(result.FinalDirection, Is.EqualTo('N'));
+            Assert.That(result.FinalDirection, Is.EqualTo(DirectionConstants.NorthDirection));
         });
     }
 }
