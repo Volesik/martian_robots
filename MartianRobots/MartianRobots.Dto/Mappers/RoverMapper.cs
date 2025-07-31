@@ -2,9 +2,9 @@
 using MartianRobots.Dto.Requests;
 using MartianRobots.Dto.Responses;
 
-namespace MartianRobots.Api.Mappers;
+namespace MartianRobots.Dto.Mappers;
 
-public static class RoverMapper
+public class RoverMapper
 {
     public static Rover ToModel(RoverCommand roverCommandDto, Plateau plateau)
     {

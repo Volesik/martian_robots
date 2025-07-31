@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36310.24 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Api", "MartianRobots.Api\MartianRobots.Api.csproj", "{C1FC9814-1640-4EB7-9FC3-BF4703F661D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Console", "MartianRobots.Console\MartianRobots.Console.csproj", "{564B0336-9C6E-40D3-975D-E7B8CAAE1680}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Cli", "MartianRobots.Cli\MartianRobots.Cli.csproj", "{564B0336-9C6E-40D3-975D-E7B8CAAE1680}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{6B43AFFF-A66D-446C-A4DF-5251B73CEB4F}"
 EndProject
