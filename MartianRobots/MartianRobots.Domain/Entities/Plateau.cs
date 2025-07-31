@@ -1,9 +1,10 @@
 ﻿using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
+using MartianRobots.Domain.Interfaces;
 
 namespace MartianRobots.Domain.Entities;
 
-public class Plateau
+public class Plateau : IPlateau
 {
     public int MaxXPosition { get; }
     

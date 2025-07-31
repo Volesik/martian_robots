@@ -8,7 +8,7 @@ namespace MartianRobots.Domain.Entities;
 
 public class Rover : IRover
 {
-    private readonly Plateau _plateau;
+    private readonly IPlateau _plateau;
     
     public Coordinates Position { get; private set; }
     
@@ -20,7 +20,7 @@ public class Rover : IRover
         int initialPositionX,
         int initialPositionY,
         Direction initialDirection,
-        Plateau plateau)
+        IPlateau plateau)
     {
         _plateau = plateau ?? throw new ArgumentNullException(nameof(plateau));
         
