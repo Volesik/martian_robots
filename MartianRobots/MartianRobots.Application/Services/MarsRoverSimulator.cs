@@ -5,24 +5,19 @@ namespace MartianRobots.Application.Services;
 
 public class MarsRoverSimulator : IMarsRoverSimulator
 {
+    private readonly ICommandFactory _commandFactory;
+
+    public MarsRoverSimulator(ICommandFactory commandFactory)
+    {
+        _commandFactory = commandFactory;
+    }
+    
     public void ExecuteCommands(IRover rover, string commandSequence)
     {
         foreach (var instruction in commandSequence.ToUpperInvariant())
         {
-            switch (instruction)
-            {
-                case 'L':
-                    rover.TurnLeft();
-                    break;
-                case 'R':
-                    rover.TurnRight();
-                    break;
-                case 'F':
-                    rover.MoveForward();
-                    break;
-                default:
-                    throw new ArgumentException($"Invalid command character: '{instruction}'");
-            }
+            var command = _commandFactory.Create(instruction);
+            command.Execute(rover);
         }
     }
 }
