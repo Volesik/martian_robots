@@ -38,7 +38,7 @@ public class PlateauTests
         {
             var plateau = new Plateau(x, y);
         });
-        StringAssert.Contains($"Plateau dimensions must be greater than {PlateauConstants.DefaultPosition}", ex.Message);
+        StringAssert.Contains($"Plateau dimensions must be greater than {CoordinateConstants.DefaultPosition}", ex.Message);
     }
     
     [TestCase(0, 0, true)]

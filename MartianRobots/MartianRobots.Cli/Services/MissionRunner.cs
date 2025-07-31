@@ -2,6 +2,7 @@
 using MartianRobots.Cli.Constants;
 using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
+using MartianRobots.Common.Validators;
 using MartianRobots.Domain.Entities;
 using MartianRobots.Domain.Interfaces;
 using MartianRobots.Dto.Mappers;
@@ -34,12 +35,22 @@ public class MissionRunner
                     break;
                 }
 
-                Console.Write("Enter command sequence (e.g. LMLMLMLMM): ");
+                Console.Write("Enter command sequence (e.g. LFLFLFLFF): ");
 
                 var commands = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(commands))
                 {
                     Console.WriteLine("Commands cannot be empty.");
+                    continue;
+                }
+                
+                try
+                {
+                    InstructionValidator.ValidateInstructionLength(commands);
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.Message);
                     continue;
                 }
 
@@ -84,6 +95,7 @@ public class MissionRunner
                 int.TryParse(plateauSize[0], out var maxPlateauSizeX) &&
                 int.TryParse(plateauSize[1], out var maxPlateauSizeY))
             {
+                InstructionValidator.ValidateCoordinates(maxPlateauSizeX, maxPlateauSizeY);
                 plateau = new Plateau(maxPlateauSizeX, maxPlateauSizeY);
             }
             else
@@ -97,38 +109,42 @@ public class MissionRunner
     
     private static bool TryReadRover(out int xCoordinate, out int yCoordinate, out Direction direction)
     {
-        xCoordinate = RoverConstants.DefaultPosition;
-        yCoordinate = RoverConstants.DefaultPosition;
+        xCoordinate = CoordinateConstants.DefaultPosition;
+        yCoordinate = CoordinateConstants.DefaultPosition;
         direction = default;
 
-        Console.Write("Enter rover position (e.g. 1 1 E): ");
-        var input = Console.ReadLine();
+        while (true)
+        {
+            Console.Write("Enter rover position (e.g. 1 1 E): ");
+            var input = Console.ReadLine();
 
-        if (string.IsNullOrWhiteSpace(input))
-        {
-            Console.WriteLine("Ending mission...");
-            return false;
-        }
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("Ending mission...");
+                return false;
+            }
 
-        var parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        if (parts.Length != CliConstants.CoordinateSize ||
-            !int.TryParse(parts[0], out xCoordinate) ||
-            !int.TryParse(parts[1], out yCoordinate) ||
-            !char.TryParse(parts[2], out var directionChar))
-        {
-            Console.WriteLine("Invalid format. Please enter format: X Y D (e.g. 3 3 N)");
-            return TryReadRover(out xCoordinate, out yCoordinate, out direction);
-        }
+            var parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length != CliConstants.CoordinateSize ||
+                !int.TryParse(parts[0], out xCoordinate) ||
+                !int.TryParse(parts[1], out yCoordinate) ||
+                !char.TryParse(parts[2], out var directionChar))
+            {
+                Console.WriteLine("Invalid format. Please enter: X Y D (e.g. 3 3 N)");
+                continue;
+            }
 
-        try
-        {
-            direction = DirectionMapper.CharToDirection(directionChar);
-            return true;
-        }
-        catch
-        {
-            Console.WriteLine("Invalid direction character. Use N, E, S, or W.");
-            return TryReadRover(out xCoordinate, out yCoordinate, out direction);
+            try
+            {
+                direction = DirectionMapper.CharToDirection(directionChar);
+                InstructionValidator.ValidateCoordinates(xCoordinate, yCoordinate);
+
+                return true;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Validation error: {ex.Message}");
+            }
         }
     }
     

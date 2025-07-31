@@ -1,4 +1,5 @@
 using MartianRobots.Application.Interfaces;
+using MartianRobots.Common.Validators;
 using MartianRobots.Domain.Entities;
 using MartianRobots.Dto.Mappers;
 using MartianRobots.Dto.Requests;
@@ -26,11 +27,16 @@ namespace MartianRobots.Api.Controllers
         {
             try
             {
+                InstructionValidator.ValidateCoordinates(request.PlateauSizeX, request.PlateauSizeY);
+                
                 var plateau = new Plateau(request.PlateauSizeX, request.PlateauSizeY);
                 var results = new List<MissionResult>();
 
                 foreach (var roverConfiguration in request.RoverConfigurations)
                 {
+                    InstructionValidator.ValidateCoordinates(roverConfiguration.InitialPositionX, roverConfiguration.InitialPositionY);
+                    InstructionValidator.ValidateInstructionLength(roverConfiguration.Commands);
+                    
                     var rover = RoverMapper.ToModel(roverConfiguration, plateau);
                     _marsRoverSimulator.ExecuteCommands(rover, roverConfiguration.Commands);
                     results.Add(RoverMapper.ToDto(rover));

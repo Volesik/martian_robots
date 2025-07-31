@@ -14,9 +14,9 @@ public class Plateau : IPlateau
 
     public Plateau(int maxXPosition, int maxYPosition)
     {
-        if (maxXPosition <= PlateauConstants.DefaultPosition || maxYPosition <= PlateauConstants.DefaultPosition)
+        if (maxXPosition <= CoordinateConstants.DefaultPosition || maxYPosition <= CoordinateConstants.DefaultPosition)
         {
-            throw new ArgumentException($"Plateau dimensions must be greater than {PlateauConstants.DefaultPosition}.");
+            throw new ArgumentException($"Plateau dimensions must be greater than {CoordinateConstants.DefaultPosition}.");
         }
         
         MaxXPosition = maxXPosition;
@@ -25,8 +25,8 @@ public class Plateau : IPlateau
 
     public bool IsInsidePlateauArea(int xCoordinate, int yCoordinate)
     {
-        var isInsidePlateau = xCoordinate >= PlateauConstants.DefaultPosition && xCoordinate <= MaxXPosition &&
-                              yCoordinate >= PlateauConstants.DefaultPosition && yCoordinate <= MaxYPosition;
+        var isInsidePlateau = xCoordinate >= CoordinateConstants.DefaultPosition && xCoordinate <= MaxXPosition &&
+                              yCoordinate >= CoordinateConstants.DefaultPosition && yCoordinate <= MaxYPosition;
         
         return isInsidePlateau;
     }
