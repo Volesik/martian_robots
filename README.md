@@ -20,7 +20,7 @@ This is a clean and testable implementation of the **Mars Rover problem** — ad
 - **MartianRobots.Cli/** – Console interface
 - **MartianRobots.Application/** – Use cases and services
 - **MartianRobots.Domain/** – Core business logic
-- **MartianRobots.Common/** – Enums, Constants, Helpers
+- **MartianRobots.Common/** – Enums, Constants, Helpers, Validators
 - **MartianRobots.Dto/** – DTOs and Mappers
 - **MartianRobots.Tests/** – Unit tests
  
@@ -44,7 +44,7 @@ This is a clean and testable implementation of the **Mars Rover problem** — ad
 dotnet run --project MartianRobots.Cli
 Enter plateau upper-right coordinates (e.g. 5 3): 5 3
 Enter rover position (e.g. 1 1 E): 1 1 E
-Enter command sequence (e.g. LMLMLMLMM): RFRFRFRF
+Enter command sequence (e.g. LFLFLFLFF): RFRFRFRF
 ...
 ```
 ### ✅ Web API
@@ -141,3 +141,25 @@ For each robot position/instruction, the output should indicate:
 The final grid position and orientation of the robot
 
 If a robot falls off the edge of the grid, append the word "LOST"
+
+### Sample input
+5 3
+
+1 1 E
+
+RFRFRFRF
+
+3 2 N
+
+FRRFLLFFRRFLL
+
+0 3 W
+
+LLFFFLFLFL
+
+### Sample output
+1 1 E
+
+3 3 N LOST
+
+2 3 S
