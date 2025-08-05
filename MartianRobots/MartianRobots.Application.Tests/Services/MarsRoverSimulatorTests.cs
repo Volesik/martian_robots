@@ -19,7 +19,7 @@ public class MarsRoverSimulatorTests
     public void SetUp()
     {
         _rover = A.Fake<IRover>();
-        _commandFactory = new CommandFactory();
+        _commandFactory = A.Fake<ICommandFactory>();
         _marsRoverSimulator = new MarsRoverSimulator(_commandFactory);
     }
     
@@ -78,6 +78,8 @@ public class MarsRoverSimulatorTests
     public void ExecuteCommands_ShouldSimulateSampleInputCorrectly()
     {
         // Arrange
+        var commandFactory = new CommandFactory();
+        var marsRoverSimulator = new MarsRoverSimulator(commandFactory);
         var plateau = new Plateau(5, 3);
         
         var rover1 = new Rover(1, 1, Direction.East, plateau);
@@ -85,9 +87,9 @@ public class MarsRoverSimulatorTests
         var rover3 = new Rover(0, 3, Direction.West, plateau);
         
         // Act
-        _marsRoverSimulator.ExecuteCommands(rover1, "RFRFRFRF");
-        _marsRoverSimulator.ExecuteCommands(rover2, "FRRFLLFFRRFLL");
-        _marsRoverSimulator.ExecuteCommands(rover3, "LLFFFLFLFL");
+        marsRoverSimulator.ExecuteCommands(rover1, "RFRFRFRF");
+        marsRoverSimulator.ExecuteCommands(rover2, "FRRFLLFFRRFLL");
+        marsRoverSimulator.ExecuteCommands(rover3, "LLFFFLFLFL");
         
         // Assert
         Assert.Multiple(() =>
