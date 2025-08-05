@@ -1,15 +1,17 @@
-﻿using MartianRobots.Common.Constants;
+﻿using MartianRobots.Abstractions.Domains;
+using MartianRobots.Abstractions.Utils;
+using MartianRobots.Application.Interfaces;
+using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
-using MartianRobots.Common.Mappers;
 using MartianRobots.Common.Models;
-using MartianRobots.Common.Utils;
-using MartianRobots.Domain.Interfaces;
 
 namespace MartianRobots.Domain.Entities;
 
 public class Rover : IRover
 {
     private readonly IPlateau _plateau;
+    private readonly IDirectionMapper _directionMapper;
+    private readonly IDirectionUtils _directionUtils;
     
     public Coordinates Position { get; private set; }
     
@@ -21,9 +23,13 @@ public class Rover : IRover
         int initialPositionX,
         int initialPositionY,
         Direction initialDirection,
-        IPlateau plateau)
+        IPlateau plateau,
+        IDirectionMapper directionMapper,
+        IDirectionUtils directionUtils)
     {
         _plateau = plateau ?? throw new ArgumentNullException(nameof(plateau));
+        _directionMapper = directionMapper ?? throw new ArgumentNullException(nameof(directionMapper));
+        _directionUtils = directionUtils ?? throw new ArgumentNullException(nameof(directionUtils));
         
         var isInitialPositionOutsidePlateau = !_plateau.IsInsidePlateauArea(initialPositionX, initialPositionY);
         if (isInitialPositionOutsidePlateau)
@@ -42,20 +48,20 @@ public class Rover : IRover
             return;
         }
         
-        var currentDirectionIndex = Array.IndexOf(DirectionUtils.OrderedDirections, CurrentDirection);
-        var newIndex = DirectionUtils.NormalizeDirectionIndex(currentDirectionIndex + DirectionUtils.LeftTurnOffset);
+        var currentDirectionIndex = Array.IndexOf(_directionUtils.OrderedDirections, CurrentDirection);
+        var newIndex = _directionUtils.NormalizeDirectionIndex(currentDirectionIndex + _directionUtils.LeftTurnOffset);
         
-        CurrentDirection = DirectionUtils.OrderedDirections[newIndex];
+        CurrentDirection = _directionUtils.OrderedDirections[newIndex];
     }
 
     public void TurnRight()
     {
         if (IsRoverLost) return;
 
-        var currentDirectionIndex = Array.IndexOf(DirectionUtils.OrderedDirections, CurrentDirection);
-        var newIndex = DirectionUtils.NormalizeDirectionIndex(currentDirectionIndex + DirectionUtils.RightTurnOffset);
+        var currentDirectionIndex = Array.IndexOf(_directionUtils.OrderedDirections, CurrentDirection);
+        var newIndex = _directionUtils.NormalizeDirectionIndex(currentDirectionIndex + _directionUtils.RightTurnOffset);
         
-        CurrentDirection = DirectionUtils.OrderedDirections[newIndex];
+        CurrentDirection = _directionUtils.OrderedDirections[newIndex];
     }
 
     public void MoveForward()
@@ -105,7 +111,7 @@ public class Rover : IRover
     
     public override string ToString()
     {
-        return $"{Position.X} {Position.Y} {DirectionMapper.DirectionToChar(CurrentDirection)}"
-               + (IsRoverLost ? $" {RoverConstants.LostStatus}" : string.Empty);
+        return $"{Position.X} {Position.Y} {_directionMapper.DirectionToChar(CurrentDirection)}"
+               + (IsRoverLost ? $" {RoverConstants.LostStatus}" : "");
     }
 }

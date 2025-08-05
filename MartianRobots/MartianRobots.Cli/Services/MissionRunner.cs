@@ -1,21 +1,32 @@
-﻿using MartianRobots.Application.Interfaces;
+﻿using MartianRobots.Abstractions.Domains;
+using MartianRobots.Abstractions.Factories;
+using MartianRobots.Abstractions.Services;
+using MartianRobots.Abstractions.Utils;
+using MartianRobots.Application.Interfaces;
 using MartianRobots.Cli.Constants;
 using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
-using MartianRobots.Common.Mappers;
-using MartianRobots.Common.Validators;
 using MartianRobots.Domain.Entities;
-using MartianRobots.Domain.Interfaces;
 
 namespace MartianRobots.Cli.Services;
 
 public class MissionRunner
 {
+    private readonly IInstructionValidator _instructionValidator;
     private readonly IMarsRoverSimulator _marsRoverSimulator;
+    private readonly IDirectionMapper _directionMapper;
+    private readonly IRoverFactory _roverFactory;
 
-    public MissionRunner(IMarsRoverSimulator marsRoverSimulator)
+    public MissionRunner(
+        IInstructionValidator instructionValidator,
+        IMarsRoverSimulator marsRoverSimulator,
+        IDirectionMapper directionMapper,
+        IRoverFactory roverFactory)
     {
+        _instructionValidator = instructionValidator;
         _marsRoverSimulator = marsRoverSimulator;
+        _directionMapper = directionMapper;
+        _roverFactory = roverFactory;
     }
     
     public void Run()
@@ -46,7 +57,7 @@ public class MissionRunner
                 
                 try
                 {
-                    InstructionValidator.ValidateInstructionLength(commands);
+                    _instructionValidator.ValidateInstructionLength(commands);
                 }
                 catch (Exception exception)
                 {
@@ -56,7 +67,7 @@ public class MissionRunner
 
                 try
                 {
-                    var rover = new Rover(xCoordinate, yCoordinate, direction, plateau);
+                    var rover = _roverFactory.Create(xCoordinate, yCoordinate, direction, plateau);
                     _marsRoverSimulator.ExecuteCommands(rover, commands);
                     PrintRoverResult(rover);
                 }
@@ -75,7 +86,7 @@ public class MissionRunner
         }
     }
 
-    private static Plateau GetPlateau()
+    private Plateau GetPlateau()
     {
         Plateau? plateau = null;
         
@@ -95,7 +106,7 @@ public class MissionRunner
                 int.TryParse(plateauSize[0], out var maxPlateauSizeX) &&
                 int.TryParse(plateauSize[1], out var maxPlateauSizeY))
             {
-                InstructionValidator.ValidateCoordinates(maxPlateauSizeX, maxPlateauSizeY);
+                _instructionValidator.ValidateCoordinates(maxPlateauSizeX, maxPlateauSizeY);
                 plateau = new Plateau(maxPlateauSizeX, maxPlateauSizeY);
             }
             else
@@ -107,7 +118,7 @@ public class MissionRunner
         return plateau;
     }
     
-    private static bool TryReadRover(out int xCoordinate, out int yCoordinate, out Direction direction)
+    private bool TryReadRover(out int xCoordinate, out int yCoordinate, out Direction direction)
     {
         xCoordinate = CoordinateConstants.DefaultPosition;
         yCoordinate = CoordinateConstants.DefaultPosition;
@@ -136,8 +147,8 @@ public class MissionRunner
 
             try
             {
-                direction = DirectionMapper.CharToDirection(directionChar);
-                InstructionValidator.ValidateCoordinates(xCoordinate, yCoordinate);
+                direction = _directionMapper.CharToDirection(directionChar);
+                _instructionValidator.ValidateCoordinates(xCoordinate, yCoordinate);
 
                 return true;
             }

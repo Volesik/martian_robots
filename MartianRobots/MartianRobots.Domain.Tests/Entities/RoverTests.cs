@@ -1,8 +1,11 @@
 ﻿using FakeItEasy;
+using MartianRobots.Abstractions.Domains;
+using MartianRobots.Abstractions.Utils;
+using MartianRobots.Application.Factories;
+using MartianRobots.Application.Interfaces;
+using MartianRobots.Application.Utils;
 using MartianRobots.Common.Enums;
 using MartianRobots.Common.Models;
-using MartianRobots.Domain.Entities;
-using MartianRobots.Domain.Interfaces;
 
 namespace MartianRobots.Domain.Tests.Entities;
 
@@ -10,11 +13,15 @@ namespace MartianRobots.Domain.Tests.Entities;
 public class RoverTests
 {
     private IPlateau _plateau;
+    private IDirectionMapper _directionMapper;
+    private IDirectionUtils _directionUtils;
 
     [SetUp]
     public void SetUp()
     {
         _plateau = A.Fake<IPlateau>();
+        _directionMapper = A.Fake<IDirectionMapper>();
+        _directionUtils = new DirectionUtils();
     }
 
     [Test]
@@ -22,9 +29,10 @@ public class RoverTests
     {
         // Arrange
         A.CallTo(() => _plateau.IsInsidePlateauArea(1, 1)).Returns(true);
+        var roverFactory = new RoverFactory(_directionMapper, _directionUtils);
         
         // Act
-        var rover = new Rover(1, 1, Direction.North, _plateau);
+        var rover = roverFactory.Create(1, 1, Direction.North, _plateau);
         
         // Assert
         Assert.Multiple(() =>
@@ -41,11 +49,12 @@ public class RoverTests
     {
         // Arrange
         A.CallTo(() => _plateau.IsInsidePlateauArea(10, 10)).Returns(false);
+        var roverFactory = new RoverFactory(_directionMapper, _directionUtils);
 
         // Act & Assert
         Assert.Throws<ArgumentException>(() =>
         {
-            var rover = new Rover(10, 10, Direction.East, _plateau);
+            var rover = roverFactory.Create(10, 10, Direction.East, _plateau);
         });
     }
     
@@ -54,7 +63,8 @@ public class RoverTests
     {
         // Arrange
         A.CallTo(() => _plateau.IsInsidePlateauArea(A<int>._, A<int>._)).Returns(true);
-        var rover = new Rover(1, 1, Direction.North, _plateau);
+        var roverFactory = new RoverFactory(_directionMapper, _directionUtils);
+        var rover = roverFactory.Create(1, 1, Direction.North, _plateau);
         
         // Act
         rover.TurnLeft();
@@ -69,7 +79,8 @@ public class RoverTests
         // Arrange
         A.CallTo(() => _plateau.IsInsidePlateauArea(1, 1)).Returns(true);
         A.CallTo(() => _plateau.IsInsidePlateauArea(1, 2)).Returns(true);
-        var rover = new Rover(1, 1, Direction.North, _plateau);
+        var roverFactory = new RoverFactory(_directionMapper, _directionUtils);
+        var rover = roverFactory.Create(1, 1, Direction.North, _plateau);
 
         // Act
         rover.MoveForward();
@@ -89,7 +100,8 @@ public class RoverTests
         A.CallTo(() => _plateau.IsInsidePlateauArea(1, 1)).Returns(true);
         A.CallTo(() => _plateau.IsInsidePlateauArea(1, 2)).Returns(false);
         A.CallTo(() => _plateau.IsDangerZone(1, 1, Direction.North)).Returns(false);
-        var rover = new Rover(1, 1, Direction.North, _plateau);
+        var roverFactory = new RoverFactory(_directionMapper, _directionUtils);
+        var rover = roverFactory.Create(1, 1, Direction.North, _plateau);
 
         // Act
         rover.MoveForward();
@@ -106,7 +118,8 @@ public class RoverTests
         A.CallTo(() => _plateau.IsInsidePlateauArea(1, 1)).Returns(true);
         A.CallTo(() => _plateau.IsInsidePlateauArea(1, 2)).Returns(false);
         A.CallTo(() => _plateau.IsDangerZone(1, 1, Direction.North)).Returns(true);
-        var rover = new Rover(1, 1, Direction.North, _plateau);
+        var roverFactory = new RoverFactory(_directionMapper, _directionUtils);
+        var rover = roverFactory.Create(1, 1, Direction.North, _plateau);
 
         // Act
         rover.MoveForward();

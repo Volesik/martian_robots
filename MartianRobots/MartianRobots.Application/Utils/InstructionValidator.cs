@@ -1,10 +1,11 @@
-﻿using MartianRobots.Common.Constants;
+﻿using MartianRobots.Abstractions.Utils;
+using MartianRobots.Common.Constants;
 
-namespace MartianRobots.Common.Validators;
+namespace MartianRobots.Application.Utils;
 
-public static class InstructionValidator
+public class InstructionValidator : IInstructionValidator
 {
-    public static void ValidateCoordinates(int xCoordinate, int yCoordinate)
+    public void ValidateCoordinates(int xCoordinate, int yCoordinate)
     {
         if (xCoordinate < CoordinateConstants.DefaultPosition || yCoordinate < CoordinateConstants.DefaultPosition)
             throw new ArgumentException("Coordinates must not be negative.");
@@ -13,7 +14,7 @@ public static class InstructionValidator
             throw new ArgumentException($"Coordinates must not exceed {InstructionConstants.MaxCoordinateLength}.");
     }
     
-    public static void ValidateInstructionLength(string instructions)
+    public void ValidateInstructionLength(string instructions)
     {
         if (string.IsNullOrWhiteSpace(instructions))
             throw new ArgumentException("Command sequence cannot be empty.");

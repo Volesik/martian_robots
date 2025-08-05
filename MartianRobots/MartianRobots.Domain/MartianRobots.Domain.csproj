@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MartianRobots.Abstractions\MartianRobots.Abstractions.csproj" />
       <ProjectReference Include="..\MartianRobots.Common\MartianRobots.Common.csproj" />
     </ItemGroup>
 

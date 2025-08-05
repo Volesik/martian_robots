@@ -8,7 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MartianRobots.Abstractions\MartianRobots.Abstractions.csproj" />
       <ProjectReference Include="..\MartianRobots.Domain\MartianRobots.Domain.csproj" />
+      <ProjectReference Include="..\MartianRobots.Dto\MartianRobots.Dto.csproj" />
     </ItemGroup>
 
     <ItemGroup>

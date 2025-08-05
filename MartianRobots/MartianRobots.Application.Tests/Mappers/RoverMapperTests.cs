@@ -1,14 +1,34 @@
-﻿using MartianRobots.Common.Constants;
+﻿using MartianRobots.Abstractions.Factories;
+using MartianRobots.Abstractions.Utils;
+using MartianRobots.Application.Factories;
+using MartianRobots.Application.Interfaces;
+using MartianRobots.Application.Mappers;
+using MartianRobots.Application.Services;
+using MartianRobots.Application.Utils;
+using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
 using MartianRobots.Domain.Entities;
-using MartianRobots.Dto.Mappers;
 using MartianRobots.Dto.Requests;
 
-namespace MartianRobots.Dto.Tests.Mappers;
+namespace MartianRobots.Application.Tests.Mappers;
 
 [TestFixture]
 public class RoverMapperTests
 {
+    private IRoverMapper _roverMapper;
+    private IDirectionUtils _directionUtils;
+    private IDirectionMapper _directionMapper;
+    private IRoverFactory _roverFactory;
+
+    [SetUp]
+    public void SetUp()
+    {
+        _directionMapper = new DirectionMapper();
+        _directionUtils = new DirectionUtils();
+        _roverFactory = new RoverFactory(_directionMapper, _directionUtils);
+        _roverMapper = new RoverMapper(_directionMapper, _roverFactory);
+    }
+    
     [Test]
     public void ToModel_ShouldMapCommandToRoverCorrectly()
     {
@@ -23,7 +43,7 @@ public class RoverMapperTests
         var plateau = new Plateau(5, 5);
 
         // Act
-        var rover = RoverMapper.ToModel(command, plateau);
+        var rover = _roverMapper.ToModel(command, plateau);
         
         // Assert
         Assert.Multiple(() =>
@@ -48,7 +68,7 @@ public class RoverMapperTests
         var plateau = new Plateau(5, 5);
 
         // Act & Assert
-        Assert.Throws<ArgumentException>(() => RoverMapper.ToModel(command, plateau));
+        Assert.Throws<ArgumentException>(() => _roverMapper.ToModel(command, plateau));
     }
     
     [Test]
@@ -56,11 +76,12 @@ public class RoverMapperTests
     {
         // Arrange
         var plateau = new Plateau(5, 5);
-        var rover = new Rover(1, 2, Direction.North, plateau);
+        var roverFactory = new RoverFactory(_directionMapper, _directionUtils);
+        var rover = roverFactory.Create(1, 2, Direction.North, plateau);
         rover.MoveForward();
 
         // Act
-        var result = RoverMapper.ToDto(rover);
+        var result = _roverMapper.ToDto(rover);
 
         // Assert
         Assert.Multiple(() =>
@@ -77,11 +98,12 @@ public class RoverMapperTests
     {
         // Arrange
         var plateau = new Plateau(2, 2);
-        var rover = new Rover(2, 2, Direction.North, plateau);
+        var roverFactory = new RoverFactory(_directionMapper, _directionUtils);
+        var rover = roverFactory.Create(2, 2, Direction.North, plateau);
         rover.MoveForward();
 
         // Act
-        var result = RoverMapper.ToDto(rover);
+        var result = _roverMapper.ToDto(rover);
 
         // Assert
         Assert.Multiple(() =>

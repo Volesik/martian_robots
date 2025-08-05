@@ -1,7 +1,7 @@
 ﻿using MartianRobots.Common.Enums;
 using MartianRobots.Common.Models;
 
-namespace MartianRobots.Domain.Interfaces;
+namespace MartianRobots.Abstractions.Domains;
 
 public interface IRover
 {

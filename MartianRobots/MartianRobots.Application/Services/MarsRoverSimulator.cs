@@ -1,5 +1,6 @@
-﻿using MartianRobots.Application.Interfaces;
-using MartianRobots.Domain.Interfaces;
+﻿using MartianRobots.Abstractions.Domains;
+using MartianRobots.Abstractions.Factories;
+using MartianRobots.Abstractions.Services;
 
 namespace MartianRobots.Application.Services;
 

@@ -1,6 +1,6 @@
 ﻿using FakeItEasy;
+using MartianRobots.Abstractions.Domains;
 using MartianRobots.Application.Commands;
-using MartianRobots.Domain.Interfaces;
 
 namespace MartianRobots.Application.Tests.Command;
 

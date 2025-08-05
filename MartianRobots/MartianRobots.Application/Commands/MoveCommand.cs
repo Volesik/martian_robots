@@ -1,5 +1,5 @@
-﻿using MartianRobots.Application.Interfaces;
-using MartianRobots.Domain.Interfaces;
+﻿using MartianRobots.Abstractions.Command;
+using MartianRobots.Abstractions.Domains;
 
 namespace MartianRobots.Application.Commands;
 

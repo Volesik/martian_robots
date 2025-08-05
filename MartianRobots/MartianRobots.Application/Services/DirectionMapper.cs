@@ -1,11 +1,12 @@
-﻿using MartianRobots.Common.Constants;
+﻿using MartianRobots.Application.Interfaces;
+using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
 
-namespace MartianRobots.Common.Mappers;
+namespace MartianRobots.Application.Services;
 
-public class DirectionMapper
+public class DirectionMapper : IDirectionMapper
 {
-    public static Direction CharToDirection(char direction) => char.ToUpper(direction) switch
+    public Direction CharToDirection(char direction) => char.ToUpper(direction) switch
     {
         DirectionConstants.NorthDirection => Direction.North,
         DirectionConstants.EastDirection  => Direction.East,
@@ -14,7 +15,7 @@ public class DirectionMapper
         _                                 => throw new ArgumentException($"Invalid direction: {direction}")
     };
 
-    public static char DirectionToChar(Direction direction) => direction switch
+    public char DirectionToChar(Direction direction) => direction switch
     {
         Direction.North => DirectionConstants.NorthDirection,
         Direction.East  => DirectionConstants.EastDirection,

@@ -1,6 +1,6 @@
-﻿using MartianRobots.Common.Constants;
+﻿using MartianRobots.Abstractions.Domains;
+using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
-using MartianRobots.Domain.Interfaces;
 
 namespace MartianRobots.Domain.Entities;
 

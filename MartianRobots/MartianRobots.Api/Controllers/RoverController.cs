@@ -1,7 +1,7 @@
+using MartianRobots.Abstractions.Services;
+using MartianRobots.Abstractions.Utils;
 using MartianRobots.Application.Interfaces;
-using MartianRobots.Common.Validators;
 using MartianRobots.Domain.Entities;
-using MartianRobots.Dto.Mappers;
 using MartianRobots.Dto.Requests;
 using MartianRobots.Dto.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +12,18 @@ namespace MartianRobots.Api.Controllers
     [Route("[controller]")]
     public class RoverController : ControllerBase
     {
+        private readonly IInstructionValidator _instructionValidator;
         private readonly IMarsRoverSimulator _marsRoverSimulator;
+        private readonly IRoverMapper _roverMapper;
         
-        public RoverController(IMarsRoverSimulator marsRoverSimulator)
+        public RoverController(
+            IInstructionValidator instructionValidator,
+            IMarsRoverSimulator marsRoverSimulator,
+            IRoverMapper roverMapper)
         {
             _marsRoverSimulator = marsRoverSimulator;
+            _roverMapper = roverMapper;
+            _instructionValidator = instructionValidator;
         }
 
         [HttpPost]
@@ -27,19 +34,19 @@ namespace MartianRobots.Api.Controllers
         {
             try
             {
-                InstructionValidator.ValidateCoordinates(request.PlateauSizeX, request.PlateauSizeY);
+                _instructionValidator.ValidateCoordinates(request.PlateauSizeX, request.PlateauSizeY);
                 
                 var plateau = new Plateau(request.PlateauSizeX, request.PlateauSizeY);
                 var results = new List<MissionResult>();
 
                 foreach (var roverConfiguration in request.RoverConfigurations)
                 {
-                    InstructionValidator.ValidateCoordinates(roverConfiguration.InitialPositionX, roverConfiguration.InitialPositionY);
-                    InstructionValidator.ValidateInstructionLength(roverConfiguration.Commands);
+                    _instructionValidator.ValidateCoordinates(roverConfiguration.InitialPositionX, roverConfiguration.InitialPositionY);
+                    _instructionValidator.ValidateInstructionLength(roverConfiguration.Commands);
                     
-                    var rover = RoverMapper.ToModel(roverConfiguration, plateau);
+                    var rover = _roverMapper.ToModel(roverConfiguration, plateau);
                     _marsRoverSimulator.ExecuteCommands(rover, roverConfiguration.Commands);
-                    results.Add(RoverMapper.ToDto(rover));
+                    results.Add(_roverMapper.ToDto(rover));
                 }
             
                 return Ok(results);

@@ -1,6 +1,6 @@
 ﻿using MartianRobots.Common.Enums;
 
-namespace MartianRobots.Domain.Interfaces;
+namespace MartianRobots.Abstractions.Domains;
 
 public interface IPlateau
 {

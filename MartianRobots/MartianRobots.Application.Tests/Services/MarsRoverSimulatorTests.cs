@@ -1,10 +1,16 @@
 ﻿using FakeItEasy;
+using MartianRobots.Abstractions.Command;
+using MartianRobots.Abstractions.Domains;
+using MartianRobots.Abstractions.Factories;
+using MartianRobots.Abstractions.Services;
+using MartianRobots.Abstractions.Utils;
 using MartianRobots.Application.Commands;
+using MartianRobots.Application.Factories;
 using MartianRobots.Application.Interfaces;
 using MartianRobots.Application.Services;
+using MartianRobots.Application.Utils;
 using MartianRobots.Common.Enums;
 using MartianRobots.Domain.Entities;
-using MartianRobots.Domain.Interfaces;
 
 namespace MartianRobots.Application.Tests.Services;
 
@@ -14,6 +20,8 @@ public class MarsRoverSimulatorTests
     private ICommandFactory _commandFactory;
     private IMarsRoverSimulator _marsRoverSimulator;
     private IRover _rover;
+    private IDirectionMapper _directionMapper;
+    private IDirectionUtils _directionUtils;
 
     [SetUp]
     public void SetUp()
@@ -21,6 +29,8 @@ public class MarsRoverSimulatorTests
         _rover = A.Fake<IRover>();
         _commandFactory = A.Fake<ICommandFactory>();
         _marsRoverSimulator = new MarsRoverSimulator(_commandFactory);
+        _directionMapper = new DirectionMapper();
+        _directionUtils = new DirectionUtils();
     }
     
     [Test]
@@ -81,10 +91,11 @@ public class MarsRoverSimulatorTests
         var commandFactory = new CommandFactory();
         var marsRoverSimulator = new MarsRoverSimulator(commandFactory);
         var plateau = new Plateau(5, 3);
+        var roverFactory = new RoverFactory(_directionMapper, _directionUtils);
         
-        var rover1 = new Rover(1, 1, Direction.East, plateau);
-        var rover2 = new Rover(3, 2, Direction.North, plateau);
-        var rover3 = new Rover(0, 3, Direction.West, plateau);
+        var rover1 = roverFactory.Create(1, 1, Direction.East, plateau);
+        var rover2 = roverFactory.Create(3, 2, Direction.North, plateau);
+        var rover3 = roverFactory.Create(0, 3, Direction.West, plateau);
         
         // Act
         marsRoverSimulator.ExecuteCommands(rover1, "RFRFRFRF");

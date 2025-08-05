@@ -1,12 +1,21 @@
-﻿using MartianRobots.Common.Constants;
+﻿using MartianRobots.Application.Interfaces;
+using MartianRobots.Application.Services;
+using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
-using MartianRobots.Common.Mappers;
 
-namespace MartianRobots.Dto.Tests.Mappers;
+namespace MartianRobots.Application.Tests.Mappers;
 
 [TestFixture]
 public class DirectionMapperTests
 {
+    private IDirectionMapper _directionMapper;
+    
+    [SetUp]
+    public void SetUp()
+    {
+        _directionMapper = new DirectionMapper();
+    }
+    
     [TestCase('N', Direction.North)]
     [TestCase('E', Direction.East)]
     [TestCase('S', Direction.South)]
@@ -17,7 +26,7 @@ public class DirectionMapperTests
     [TestCase('w', Direction.West)]
     public void CharToDirection_ValidInputs_ShouldReturnExpectedDirection(char input, Direction expected)
     {
-        var result = DirectionMapper.CharToDirection(input);
+        var result = _directionMapper.CharToDirection(input);
         
         Assert.That(result, Is.EqualTo(expected));
     }
@@ -28,7 +37,7 @@ public class DirectionMapperTests
     [TestCase('-')]
     public void CharToDirection_InvalidInputs_ShouldThrowArgumentException(char input)
     {
-        var exception = Assert.Throws<ArgumentException>(() => DirectionMapper.CharToDirection(input));
+        var exception = Assert.Throws<ArgumentException>(() => _directionMapper.CharToDirection(input));
         Assert.That(exception.Message, Does.Contain("Invalid direction"));
     }
     
@@ -38,7 +47,7 @@ public class DirectionMapperTests
     [TestCase(Direction.West, DirectionConstants.WestDirection)]
     public void DirectionToChar_ValidDirection_ReturnsExpectedChar(Direction input, char expected)
     {
-        var result = DirectionMapper.DirectionToChar(input);
+        var result = _directionMapper.DirectionToChar(input);
         
         Assert.That(result, Is.EqualTo(expected));
     }
@@ -47,7 +56,7 @@ public class DirectionMapperTests
     public void DirectionToChar_InvalidEnum_ReturnsQuestionMark()
     {
         var invalidDirection = (Direction)(-1);
-        var result = DirectionMapper.DirectionToChar(invalidDirection);
+        var result = _directionMapper.DirectionToChar(invalidDirection);
         
         Assert.That(result, Is.EqualTo(DirectionConstants.UnknownDirection));
     }

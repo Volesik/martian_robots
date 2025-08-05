@@ -1,5 +1,7 @@
-﻿using MartianRobots.Application.Interfaces;
+﻿using System.Windows.Input;
+using MartianRobots.Abstractions.Factories;
 using MartianRobots.Common.Constants;
+using ICommand = MartianRobots.Abstractions.Command.ICommand;
 
 namespace MartianRobots.Application.Commands;
 
