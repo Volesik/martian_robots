@@ -31,12 +31,13 @@ dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 ---
 
 ## 🏛️ Architecture Overview
+- **MartianRobots.Abstractions/** – Shared interfaces used across layers (e.g., services, factories, mappers)
 - **MartianRobots.Api/** – REST API project
 - **MartianRobots.Cli/** – Console interface
-- **MartianRobots.Application/** – Use cases and services
+- **MartianRobots.Application/** – Use cases, services, mappers, validators, and utilities
 - **MartianRobots.Domain/** – Core business logic
-- **MartianRobots.Common/** – Enums, Constants, Helpers, Validators
-- **MartianRobots.Dto/** – DTOs and Mappers
+- **MartianRobots.Common/** – Enums, Constants, Helpers
+- **MartianRobots.Dto/** – DTOs
 - **MartianRobots.Tests/** – Unit tests
  
 ---
