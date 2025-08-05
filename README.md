@@ -3,6 +3,21 @@
 This is a clean and testable implementation of the **Mars Rover problem** — adapted for both **Web API** and **Console CLI**. It supports extensible architecture, SOLID principles, and is designed for future scalability.
 
 ---
+## ⚠️ Possible Issues
+### NuGet source missing
+
+If you encounter issues restoring packages, make sure the official NuGet source is configured.
+
+#### 🔍 Check configured sources:
+
+```bash
+dotnet nuget list source
+```
+If https://api.nuget.org/v3/index.json is missing, add it:
+```bash
+dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+```
+---
 
 ## 🧰 Technologies Used
 - **.NET 8**
