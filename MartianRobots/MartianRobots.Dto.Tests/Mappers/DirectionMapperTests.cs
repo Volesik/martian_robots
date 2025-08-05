@@ -1,6 +1,6 @@
 ﻿using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
-using MartianRobots.Dto.Mappers;
+using MartianRobots.Common.Mappers;
 
 namespace MartianRobots.Dto.Tests.Mappers;
 

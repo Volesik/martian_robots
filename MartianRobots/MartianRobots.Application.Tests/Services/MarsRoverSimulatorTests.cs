@@ -1,6 +1,9 @@
 ﻿using FakeItEasy;
+using MartianRobots.Application.Commands;
 using MartianRobots.Application.Interfaces;
 using MartianRobots.Application.Services;
+using MartianRobots.Common.Enums;
+using MartianRobots.Domain.Entities;
 using MartianRobots.Domain.Interfaces;
 
 namespace MartianRobots.Application.Tests.Services;
@@ -15,8 +18,8 @@ public class MarsRoverSimulatorTests
     [SetUp]
     public void SetUp()
     {
-        _commandFactory = A.Fake<ICommandFactory>();
         _rover = A.Fake<IRover>();
+        _commandFactory = new CommandFactory();
         _marsRoverSimulator = new MarsRoverSimulator(_commandFactory);
     }
     
@@ -69,5 +72,29 @@ public class MarsRoverSimulatorTests
 
         // Assert
         A.CallTo(() => _commandFactory.Create(A<char>._)).MustNotHaveHappened();
+    }
+
+    [Test]
+    public void ExecuteCommands_ShouldSimulateSampleInputCorrectly()
+    {
+        // Arrange
+        var plateau = new Plateau(5, 3);
+        
+        var rover1 = new Rover(1, 1, Direction.East, plateau);
+        var rover2 = new Rover(3, 2, Direction.North, plateau);
+        var rover3 = new Rover(0, 3, Direction.West, plateau);
+        
+        // Act
+        _marsRoverSimulator.ExecuteCommands(rover1, "RFRFRFRF");
+        _marsRoverSimulator.ExecuteCommands(rover2, "FRRFLLFFRRFLL");
+        _marsRoverSimulator.ExecuteCommands(rover3, "LLFFFLFLFL");
+        
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(rover1.ToString(), Is.EqualTo("1 1 E"));
+            Assert.That(rover2.ToString(), Is.EqualTo("3 3 N LOST"));
+            Assert.That(rover3.ToString(), Is.EqualTo("2 3 S"));
+        });
     }
 }

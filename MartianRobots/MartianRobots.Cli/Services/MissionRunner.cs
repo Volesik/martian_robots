@@ -2,10 +2,10 @@
 using MartianRobots.Cli.Constants;
 using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
+using MartianRobots.Common.Mappers;
 using MartianRobots.Common.Validators;
 using MartianRobots.Domain.Entities;
 using MartianRobots.Domain.Interfaces;
-using MartianRobots.Dto.Mappers;
 
 namespace MartianRobots.Cli.Services;
 
@@ -150,13 +150,6 @@ public class MissionRunner
     
     private void PrintRoverResult(IRover rover)
     {
-        Console.Write($"{rover.Position.X} {rover.Position.Y} {DirectionMapper.DirectionToChar(rover.CurrentDirection)}");
-        
-        if (rover.IsRoverLost)
-        {
-            Console.Write(" LOST");
-        }
-        
-        Console.WriteLine("");
+        Console.WriteLine(rover + "\n");
     }
 }

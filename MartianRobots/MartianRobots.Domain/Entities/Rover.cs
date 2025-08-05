@@ -1,6 +1,7 @@
 ﻿using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
 using MartianRobots.Common.Extensions;
+using MartianRobots.Common.Mappers;
 using MartianRobots.Common.Models;
 using MartianRobots.Domain.Interfaces;
 
@@ -93,5 +94,11 @@ public class Rover : IRover
             _plateau.AddDangerZone(Position.X, Position.Y, CurrentDirection);
             IsRoverLost = true;
         }
+    }
+    
+    public override string ToString()
+    {
+        return $"{Position.X} {Position.Y} {DirectionMapper.DirectionToChar(CurrentDirection)}"
+               + (IsRoverLost ? $" {RoverConstants.LostStatus}" : string.Empty);
     }
 }

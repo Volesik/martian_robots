@@ -1,7 +1,7 @@
 ﻿using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
 
-namespace MartianRobots.Dto.Mappers;
+namespace MartianRobots.Common.Mappers;
 
 public class DirectionMapper
 {

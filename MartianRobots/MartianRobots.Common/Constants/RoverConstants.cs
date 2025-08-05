@@ -6,4 +6,5 @@ public static class RoverConstants
     public const char TurnLeftInstruction = 'L';
     public const char TurnRightInstruction = 'R';
     public const char MoveForwardInstruction = 'F';
+    public const string LostStatus = "LOST";
 }
