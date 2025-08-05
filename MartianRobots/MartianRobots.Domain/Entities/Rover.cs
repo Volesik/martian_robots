@@ -1,8 +1,8 @@
 ﻿using MartianRobots.Common.Constants;
 using MartianRobots.Common.Enums;
-using MartianRobots.Common.Extensions;
 using MartianRobots.Common.Mappers;
 using MartianRobots.Common.Models;
+using MartianRobots.Common.Utils;
 using MartianRobots.Domain.Interfaces;
 
 namespace MartianRobots.Domain.Entities;
@@ -37,18 +37,25 @@ public class Rover : IRover
     
     public void TurnLeft()
     {
-        if (!IsRoverLost)
+        if (IsRoverLost)
         {
-            CurrentDirection = CurrentDirection.TurnLeft();
+            return;
         }
+        
+        var currentDirectionIndex = Array.IndexOf(DirectionUtils.OrderedDirections, CurrentDirection);
+        var newIndex = DirectionUtils.NormalizeDirectionIndex(currentDirectionIndex + DirectionUtils.LeftTurnOffset);
+        
+        CurrentDirection = DirectionUtils.OrderedDirections[newIndex];
     }
 
     public void TurnRight()
     {
-        if (!IsRoverLost)
-        {
-            CurrentDirection = CurrentDirection.TurnRight();
-        }
+        if (IsRoverLost) return;
+
+        var currentDirectionIndex = Array.IndexOf(DirectionUtils.OrderedDirections, CurrentDirection);
+        var newIndex = DirectionUtils.NormalizeDirectionIndex(currentDirectionIndex + DirectionUtils.RightTurnOffset);
+        
+        CurrentDirection = DirectionUtils.OrderedDirections[newIndex];
     }
 
     public void MoveForward()
